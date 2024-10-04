@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Proyecto</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="column center">
+      <article class="column container">
+        <h1>Cajero Automático</h1>
+        <div id="login">
+          <h2>Selecciona tu cuenta</h2>
+          <button onclick="seleccionarCuenta('Mali')">Mali</button>
+          <button onclick="seleccionarCuenta('Gera')">Gera</button>
+          <button onclick="seleccionarCuenta('Maui')">Maui</button>
+        </div>
+        <div id="password">
+          <h2>Ingresa tu contraseña</h2>
+          <input type="password" id="inputPassword" />
+          <button onclick="verificarPassword()">Ingresar</button>
+          <p id="errorPassword" style="color: red"></p>
+        </div>
+        <div id="menu">
+          <h2>Bienvenido(a), <span id="nombreUsuario"></span></h2>
+          <button onclick="consultarSaldo()">Consultar saldo</button>
+          <button onclick="mostrarIngreso()">Ingresar monto</button>
+          <button onclick="mostrarRetiro()">Retirar monto</button>
+          <button onclick="cerrarSesion()">Cerrar sesión</button>
+          <p id="mensaje"></p>
+        </div>
+        <div id="ingreso">
+          <h2>Ingresar Monto</h2>
+          <input type="number" id="montoIngreso" />
+          <button onclick="ingresarMonto()">Ingresar</button>
+          <p id="errorIngreso" style="color: red"></p>
+        </div>
+        <div id="retiro">
+          <h2>Retirar Monto</h2>
+          <input type="number" id="montoRetiro" />
+          <button onclick="retirarMonto()">Retirar</button>
+          <p id="errorRetiro" style="color: red"></p>
+        </div>
+      </article>
+    </main>
+    <script src="index.js"></script>
+  </body>
+</html>
