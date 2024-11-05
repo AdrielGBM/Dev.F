@@ -43,5 +43,9 @@ mapping(data);
 document.getElementById("search").addEventListener("submit", function (event) {
   event.preventDefault();
   const filter = document.getElementById("filter").value;
-  mapping(data.filter((product) => product.title.includes(filter)));
+  mapping(
+    data.filter(
+      (product) => product.title.includes(filter) || product.category === filter
+    )
+  );
 });
