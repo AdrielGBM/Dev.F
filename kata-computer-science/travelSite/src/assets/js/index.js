@@ -25,12 +25,12 @@ let favorites = JSON.parse(localStorage.getItem("favorites"));
 const information = document.getElementById("information");
 const search = document.getElementById("search");
 const input = document.getElementById("filter");
+let area = "places";
 let filter;
 
 function initialize() {
   const placesArea = document.getElementById("places");
   const favoritesArea = document.getElementById("favorites");
-  let area = "places";
   document.getElementById("close-button").onclick = close;
 
   if (!favorites) {
@@ -169,6 +169,13 @@ function activateButtons() {
           button.classList.remove("remove-button");
           button.classList.add("favorite-button");
           button.textContent = "Add to favorites";
+          console.log(button.closest("#card"));
+          if (area === "favorites") {
+            const card = button.closest("#card");
+            if (card) {
+              card.remove();
+            }
+          }
           activateButtons();
         }
         saveData();
