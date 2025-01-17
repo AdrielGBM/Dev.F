@@ -1,0 +1,12 @@
+{
+  "name": "ejercicio-nodejs",
+  "version": "1.0.0",
+  "description": "Ejercicio con NodeJS",
+  "main": "saludo.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node --watch saludo.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
