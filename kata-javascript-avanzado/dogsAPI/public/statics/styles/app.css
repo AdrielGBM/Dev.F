@@ -1,0 +1,27 @@
+body {
+  min-width: 320px;
+  background-color: var(--color-bg-primary);
+}
+
+.header {
+  display: flex;
+  padding: 0.5rem 1rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header__title {
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.header__nav {
+  display: flex;
+}
+
+.header__nav-list {
+  display: flex;
+  padding: 0.5rem;
+  gap: 1rem;
+}
