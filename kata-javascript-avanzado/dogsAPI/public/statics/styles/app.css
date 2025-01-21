@@ -25,3 +25,32 @@ body {
   padding: 0.5rem;
   gap: 1rem;
 }
+
+.main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 10svh 8vw;
+  gap: 1.5rem;
+}
+
+.main__card {
+  display: flex;
+  flex-direction: column;
+  min-width: 250px;
+  width: 25%;
+  max-width: 300px;
+  padding: 1.5rem;
+  gap: 1rem;
+  border-radius: 1rem;
+  background-color: var(--color-bg-secondary);
+}
+
+.main__card-image img {
+  border-radius: 0.5rem;
+}
+
+.main__card-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
