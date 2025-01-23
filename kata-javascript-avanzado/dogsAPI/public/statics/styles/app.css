@@ -46,11 +46,21 @@ body {
   background-color: var(--color-bg-secondary);
 }
 
-.main__card-image img {
+.main__card-image {
   border-radius: 0.5rem;
 }
 
-.main__card-title {
+.main__card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.main__card-name {
   font-size: 1.2rem;
   font-weight: bold;
+}
+
+.main__card-breed {
+  color: var(--color-text-secondary);
 }
