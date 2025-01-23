@@ -61,6 +61,21 @@ body {
   font-weight: bold;
 }
 
-.main__card-breed {
+.main__card-text {
   color: var(--color-text-secondary);
+}
+
+.main__card-list {
+  gap: 0.5rem;
+}
+
+.main__card-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.main__card-item i {
+  width: 1.5rem;
+  font-size: 1.2rem;
 }
