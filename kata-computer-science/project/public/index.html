@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Base de datos de alumnos</title>
-    <link rel="stylesheet" href="variables.css" />
-    <link rel="stylesheet" href="reset.css">
-    <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" href="./statics/styles/variables.css" />
+    <link rel="stylesheet" href="./statics/styles/reset.css">
+    <link rel="stylesheet" href="./statics/styles/app.css">
     <script src="https://kit.fontawesome.com/5220de64b1.js" crossorigin="anonymous" defer></script>
-    <script src="app.js" defer></script>
+    <script src="../src/app.js" type="module" defer></script>
 </head>
 
 <body>
@@ -17,11 +17,20 @@
         <h1 class="main__title">Base de Datos de Alumnos</h1>
         <div class="main__wrapper">
             <aside class="aside">
-                <section class="aside__section aside__section--add-student">
+                <section class="aside__section">
                     <span class="aside__section-span">
                         <i class="fa-solid fa-chevron-right"></i>
                         <h2 class="aside__section-title">Agregar estudiante</h2>
                     </span>
+                    <form class="aside__form aside__form--add-student">
+                        <label for="fname">Nombre</label>
+                        <input type="text" name="fname" id="fname">
+                        <label for="lname">Apellido</label>
+                        <input type="text" id="lname" name="lname">
+                        <label for="age">Edad</label>
+                        <input type="number" id="age" name="age">
+                        <button type="button">Agregar estudiante</button>
+                    </form>
                 </section>
                 <section class="aside__section aside__section--enroll-subject"><span class="aside__section-span">
                         <i class="fa-solid fa-chevron-right"></i>
@@ -48,27 +57,6 @@
                         </tr>
                     </thead>
                     <tbody class="main__table-body">
-                        <tr class="main__table-list">
-                            <td class="main__table-item">20</td>
-                            <td class="main__table-item">Adriel Barrientos Mercado</td>
-                            <td class="main__table-item">Ing. en Informática</td>
-                            <td class="main__table-item">Lenguaje: 6.2, Matemáticas: 6.8</td>
-                            <td class="main__table-item">6.5</td>
-                        </tr>
-                        <tr class="main__table-list">
-                            <td class="main__table-item">20</td>
-                            <td class="main__table-item">Adriel Barrientos Mercado</td>
-                            <td class="main__table-item">Ing. en Informática</td>
-                            <td class="main__table-item">Lenguaje: 6.2, Matemáticas: 6.8</td>
-                            <td class="main__table-item">6.5</td>
-                        </tr>
-                        <tr class="main__table-list">
-                            <td class="main__table-item">20</td>
-                            <td class="main__table-item">Adriel Barrientos Mercado</td>
-                            <td class="main__table-item">Ing. en Informática</td>
-                            <td class="main__table-item">Lenguaje: 6.2, Matemáticas: 6.8</td>
-                            <td class="main__table-item">6.5</td>
-                        </tr>
                         <tr class="main__table-list">
                             <td class="main__table-item">20</td>
                             <td class="main__table-item">Adriel Barrientos Mercado</td>
