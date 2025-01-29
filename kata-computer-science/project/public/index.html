@@ -23,13 +23,18 @@
                         <h2 class="aside__section-title">Agregar estudiante</h2>
                     </span>
                     <form class="aside__form aside__form--add-student">
-                        <label for="fname">Nombre</label>
-                        <input type="text" name="fname" id="fname">
-                        <label for="lname">Apellido</label>
-                        <input type="text" id="lname" name="lname">
-                        <label for="age">Edad</label>
-                        <input type="number" id="age" name="age">
-                        <button type="button">Agregar estudiante</button>
+                        <fieldset class="aside__form-fieldset">
+                            <label class="aside__form-label" for="fname">Nombre</label>
+                            <input id="fname" class="aside__form-text" type="text" name="fname" placeholder="Leonardo"
+                                autocomplete="given-name" required>
+                            <label class="aside__form-label" for="lname">Apellidos</label>
+                            <input id="lname" class="aside__form-text" type="text" name="lname"
+                                placeholder="Gómez Cárdenas" autocomplete="family-name" required>
+                            <label class="aside__form-label" for="age">Edad</label>
+                            <input id="age" class="aside__form-number" type="number" name="age" placeholder="16" min="1"
+                                max="100" required>
+                            <button class="aside__form-button" type="submit">Agregar estudiante</button>
+                        </fieldset>
                     </form>
                 </section>
                 <section class="aside__section aside__section--enroll-subject"><span class="aside__section-span">

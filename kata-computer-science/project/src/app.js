@@ -20,27 +20,24 @@ function initializeSpans() {
 
 function initializeForms() {
   document
-    .querySelector(".aside__form--add-student button")
-    .addEventListener("click", addStudent);
+    .querySelector(".aside__form--add-student")
+    .addEventListener("submit", addStudent);
 }
 
-function addStudent() {
-  const firstName = document.getElementById("fname").value;
-  const lastName = document.getElementById("lname").value;
-  const age = parseInt(document.getElementById("age").value);
+function addStudent(event) {
+  event.preventDefault();
 
-  if (firstName && lastName && !isNaN(age)) {
-    const newStudent = new Student(firstName, lastName, age);
-    students.push(newStudent);
+  const firstName = document.getElementById("fname").value.trim();
+  const lastName = document.getElementById("lname").value.trim();
+  const age = parseInt(document.getElementById("age").value, 10);
 
-    console.log(
-      `Alumno registrado: ${newStudent.firstName} ${newStudent.lastName}, Edad: ${newStudent.age}`
-    );
-  } else {
-    console.log(
-      "Por favor, complete todos los campos del formulario correctamente."
-    );
-  }
+  const newStudent = new Student(firstName, lastName, age);
+  students.push(newStudent);
+
+  console.log(
+    `Alumno registrado: ${newStudent.firstName} ${newStudent.lastName}, Edad: ${newStudent.age}`
+  );
+  document.querySelector(".aside__form--add-student").reset();
 }
 
 function enrollStudentInSubject(studentName, subject) {
