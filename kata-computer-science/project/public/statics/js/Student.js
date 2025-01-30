@@ -1,5 +1,5 @@
-class Student {
-  constructor(firstName, lastName, age, subjects) {
+export default class Student {
+  constructor(firstName, lastName, age, subjects = {}) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.age = age;
@@ -28,5 +28,3 @@ class Student {
     }
   }
 }
-
-export default Student;

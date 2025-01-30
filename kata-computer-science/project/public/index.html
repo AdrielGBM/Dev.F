@@ -22,7 +22,7 @@
                         <i class="fa-solid fa-chevron-right"></i>
                         <h2 class="aside__section-title">Agregar estudiante</h2>
                     </span>
-                    <form class="aside__form aside__form--add-student">
+                    <form class="aside__form aside__form--add-student hide">
                         <fieldset class="aside__form-fieldset">
                             <label class="aside__form-label" for="fname">Nombre</label>
                             <input id="fname" class="aside__form-text" type="text" name="fname" placeholder="Leonardo"
@@ -40,15 +40,60 @@
                 <section class="aside__section aside__section--enroll-subject"><span class="aside__section-span">
                         <i class="fa-solid fa-chevron-right"></i>
                         <h2 class="aside__section-title">Inscribir materia</h2>
-                    </span></section>
+                    </span>
+                    <form class="aside__form aside__form--enroll-subject hide">
+                        <fieldset class="aside__form-fieldset">
+                            <label class="aside__form-label" for="student-subject">Estudiante</label>
+                            <input id="student-subject" class="aside__form-text" type="text" name="student"
+                                placeholder="Leonardo Gómez Cárdenas" list="students-subject" autocomplete="off"
+                                required>
+                            <datalist id="students-subject" class="aside__form-students">
+                            </datalist>
+                            <label class="aside__form-label" for="subject">Materia</label>
+                            <input id="subject" class="aside__form-text" type="text" name="subject"
+                                placeholder="Matemáticas" required>
+                            <button class="aside__form-button" type="submit">Inscribir materia</button>
+                        </fieldset>
+                    </form>
+                </section>
                 <section class="aside__section aside__section--assign-grade"><span class="aside__section-span">
                         <i class="fa-solid fa-chevron-right"></i>
                         <h2 class="aside__section-title">Asignar calificación</h2>
-                    </span></section>
+                    </span>
+                    <form class="aside__form aside__form--assign-grade hide">
+                        <fieldset class="aside__form-fieldset">
+                            <label class="aside__form-label" for="fname">Nombre</label>
+                            <input id="fname" class="aside__form-text" type="text" name="fname" placeholder="Leonardo"
+                                autocomplete="given-name" required>
+                            <label class="aside__form-label" for="lname">Apellidos</label>
+                            <input id="lname" class="aside__form-text" type="text" name="lname"
+                                placeholder="Gómez Cárdenas" autocomplete="family-name" required>
+                            <label class="aside__form-label" for="age">Edad</label>
+                            <input id="age" class="aside__form-number" type="number" name="age" placeholder="16" min="1"
+                                max="100" required>
+                            <button class="aside__form-button" type="submit">Agregar estudiante</button>
+                        </fieldset>
+                    </form>
+                </section>
                 <section class="aside__section aside__section--assign-group"><span class="aside__section-span">
                         <i class="fa-solid fa-chevron-right"></i>
                         <h2 class="aside__section-title">Asignar grupo</h2>
-                    </span></section>
+                    </span>
+                    <form class="aside__form aside__form--assign-group hide">
+                        <fieldset class="aside__form-fieldset">
+                            <label class="aside__form-label" for="fname">Nombre</label>
+                            <input id="fname" class="aside__form-text" type="text" name="fname" placeholder="Leonardo"
+                                autocomplete="given-name" required>
+                            <label class="aside__form-label" for="lname">Apellidos</label>
+                            <input id="lname" class="aside__form-text" type="text" name="lname"
+                                placeholder="Gómez Cárdenas" autocomplete="family-name" required>
+                            <label class="aside__form-label" for="age">Edad</label>
+                            <input id="age" class="aside__form-number" type="number" name="age" placeholder="16" min="1"
+                                max="100" required>
+                            <button class="aside__form-button" type="submit">Agregar estudiante</button>
+                        </fieldset>
+                    </form>
+                </section>
             </aside>
             <section class="main__database">
                 <table class="main__table">

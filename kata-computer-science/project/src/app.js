@@ -6,14 +6,33 @@ const groups = new Map();
 function main() {
   initializeSpans();
   initializeForms();
+
+  updateStudents();
 }
 
 function initializeSpans() {
   const spanElements = document.querySelectorAll(".aside__section-span");
 
   spanElements.forEach((span) => {
+    const form = span.nextElementSibling;
+    const icon = span.querySelector("i");
+
     span.addEventListener("click", () => {
-      span.classList.toggle("open");
+      const isFormVisible = !form.classList.contains("hide");
+
+      document.querySelectorAll(".aside__form").forEach((form) => {
+        form.classList.add("hide");
+      });
+      document.querySelectorAll(".aside__section-span i").forEach((icon) => {
+        icon.classList.remove("fa-chevron-down");
+        icon.classList.add("fa-chevron-right");
+      });
+
+      if (!isFormVisible) {
+        icon.classList.toggle("fa-chevron-right");
+        icon.classList.toggle("fa-chevron-down");
+        form.classList.toggle("hide");
+      }
     });
   });
 }
@@ -22,6 +41,9 @@ function initializeForms() {
   document
     .querySelector(".aside__form--add-student")
     .addEventListener("submit", addStudent);
+  document
+    .querySelector(".aside__form--enroll-subject")
+    .addEventListener("submit", enrollSubject);
 }
 
 function addStudent(event) {
@@ -33,6 +55,7 @@ function addStudent(event) {
 
   const newStudent = new Student(firstName, lastName, age);
   students.push(newStudent);
+  updateStudents();
 
   console.log(
     `Alumno registrado: ${newStudent.firstName} ${newStudent.lastName}, Edad: ${newStudent.age}`
@@ -40,16 +63,34 @@ function addStudent(event) {
   document.querySelector(".aside__form--add-student").reset();
 }
 
-function enrollStudentInSubject(studentName, subject) {
+function enrollSubject(event) {
+  event.preventDefault();
+
+  const studentName = document.getElementById("student-subject").value.trim();
   const student = students.find(
-    (s) => `${s.firstName} ${s.lastName}` === studentName
+    (student) => `${student.firstName} ${student.lastName}` === studentName
   );
+  const subject = document.getElementById("subject").value.trim();
+
   if (student) {
     student.addSubject(subject);
     console.log(`${studentName} ha sido inscrito en la materia ${subject}.`);
   } else {
     console.log(`Alumno ${studentName} no encontrado.`);
   }
+}
+
+function updateStudents() {
+  const dataLists = document.querySelectorAll(".aside__form-students");
+
+  dataLists.forEach((datalist) => {
+    datalist.innerHTML = "";
+    students.forEach((student) => {
+      const option = document.createElement("option");
+      option.value = `${student.firstName} ${student.lastName}`;
+      datalist.appendChild(option);
+    });
+  });
 }
 
 function assignGrade(studentName, subject, grade) {
