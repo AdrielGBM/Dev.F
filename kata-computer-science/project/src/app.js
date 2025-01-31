@@ -44,6 +44,12 @@ function initializeForms() {
   document
     .querySelector(".aside__form--enroll-subject")
     .addEventListener("submit", enrollSubject);
+  document
+    .getElementById("student-grade")
+    .addEventListener("change", updateSubjects);
+  document
+    .querySelector(".aside__form--assign-grade")
+    .addEventListener("submit", assignGrade);
 }
 
 function addStudent(event) {
@@ -52,6 +58,15 @@ function addStudent(event) {
   const firstName = document.getElementById("fname").value.trim();
   const lastName = document.getElementById("lname").value.trim();
   const age = parseInt(document.getElementById("age").value, 10);
+  const studentExists = students.some(
+    (student) =>
+      student.firstName === firstName && student.lastName === lastName
+  );
+
+  if (studentExists) {
+    alert("Ya existe un estudiante con el mismo nombre y apellidos.");
+    return;
+  }
 
   const newStudent = new Student(firstName, lastName, age);
   students.push(newStudent);
@@ -61,23 +76,6 @@ function addStudent(event) {
     `Alumno registrado: ${newStudent.firstName} ${newStudent.lastName}, Edad: ${newStudent.age}`
   );
   document.querySelector(".aside__form--add-student").reset();
-}
-
-function enrollSubject(event) {
-  event.preventDefault();
-
-  const studentName = document.getElementById("student-subject").value.trim();
-  const student = students.find(
-    (student) => `${student.firstName} ${student.lastName}` === studentName
-  );
-  const subject = document.getElementById("subject").value.trim();
-
-  if (student) {
-    student.addSubject(subject);
-    console.log(`${studentName} ha sido inscrito en la materia ${subject}.`);
-  } else {
-    console.log(`Alumno ${studentName} no encontrado.`);
-  }
 }
 
 function updateStudents() {
@@ -93,18 +91,85 @@ function updateStudents() {
   });
 }
 
-function assignGrade(studentName, subject, grade) {
+function enrollSubject(event) {
+  event.preventDefault();
+
+  const studentName = document.getElementById("student-subject").value.trim();
   const student = students.find(
-    (s) => `${s.firstName} ${s.lastName}` === studentName
+    (student) => `${student.firstName} ${student.lastName}` === studentName
   );
+  const subject = document.getElementById("subject").value.trim();
+
   if (student) {
-    student.updateGrade(subject, grade);
-    console.log(
-      `Se ha asignado la calificación ${grade} en ${subject} a ${studentName}.`
-    );
+    if (student.subjects && student.subjects[subject]) {
+      console.log(`${studentName} ya está inscrito en la materia ${subject}.`);
+    } else {
+      student.addSubject(subject);
+      console.log(`${studentName} ha sido inscrito en la materia ${subject}.`);
+    }
   } else {
     console.log(`Alumno ${studentName} no encontrado.`);
   }
+  document.querySelector(".aside__form--enroll-subject").reset();
+}
+
+function updateSubjects() {
+  const elements = document.querySelectorAll(
+    ".aside__form--assign-grade .aside__form--hide"
+  );
+  const dataLists = document.querySelectorAll(".aside__form-subjects");
+  const studentName = document.getElementById("student-grade").value.trim();
+  const student = students.find(
+    (student) => `${student.firstName} ${student.lastName}` === studentName
+  );
+
+  if (student) {
+    dataLists.forEach((datalist) => {
+      datalist.innerHTML = "";
+      if (Object.keys(student.subjects).length !== 0) {
+        elements.forEach((element) => element.classList.remove("hide"));
+        Object.keys(student.subjects).forEach((subject) => {
+          const option = document.createElement("option");
+          option.value = subject;
+          datalist.appendChild(option);
+        });
+      } else {
+        console.log("No hay materias inscritas.");
+        document.querySelector(".aside__form--assign-grade").reset();
+      }
+    });
+  } else {
+    elements.forEach((element) => element.classList.add("hide"));
+    console.log(`Alumno ${studentName} no encontrado.`);
+  }
+}
+
+function assignGrade(event) {
+  event.preventDefault();
+
+  const studentName = document.getElementById("student-grade").value.trim();
+  const student = students.find(
+    (student) => `${student.firstName} ${student.lastName}` === studentName
+  );
+  const subject = document.getElementById("subject-grade").value.trim();
+  const isStudentSubject = student.subjects[subject] !== undefined;
+  const grade = parseFloat(document.getElementById("grade").value);
+
+  if (student) {
+    if (isStudentSubject) {
+      student.updateGrade(subject, grade);
+      console.log(
+        `Se ha asignado la calificación ${grade} en ${subject} a ${studentName}.`
+      );
+    } else {
+      console.log(
+        `El alumno ${studentName} no está inscrito en la materia ${subject}.`
+      );
+    }
+  } else {
+    console.log(`Alumno ${studentName} no encontrado.`);
+  }
+  document.querySelector(".aside__form--assign-grade").reset();
 }
 
 function createGroup(groupName) {
