@@ -71,6 +71,7 @@ function addStudent(event) {
   const newStudent = new Student(firstName, lastName, age);
   students.push(newStudent);
   updateStudents();
+  updateStudentTable();
 
   console.log(
     `Alumno registrado: ${newStudent.firstName} ${newStudent.lastName}, Edad: ${newStudent.age}`
@@ -105,6 +106,7 @@ function enrollSubject(event) {
       console.log(`${studentName} ya está inscrito en la materia ${subject}.`);
     } else {
       student.addSubject(subject);
+      updateStudentTable();
       console.log(`${studentName} ha sido inscrito en la materia ${subject}.`);
     }
   } else {
@@ -114,9 +116,6 @@ function enrollSubject(event) {
 }
 
 function updateSubjects() {
-  const elements = document.querySelectorAll(
-    ".aside__form--assign-grade .aside__form--hide"
-  );
   const dataLists = document.querySelectorAll(".aside__form-subjects");
   const studentName = document.getElementById("student-grade").value.trim();
   const student = students.find(
@@ -127,7 +126,10 @@ function updateSubjects() {
     dataLists.forEach((datalist) => {
       datalist.innerHTML = "";
       if (Object.keys(student.subjects).length !== 0) {
-        elements.forEach((element) => element.classList.remove("hide"));
+        toggleElementsVisibility(
+          ".aside__form--assign-grade .aside__form--hide",
+          true
+        );
         Object.keys(student.subjects).forEach((subject) => {
           const option = document.createElement("option");
           option.value = subject;
@@ -139,7 +141,10 @@ function updateSubjects() {
       }
     });
   } else {
-    elements.forEach((element) => element.classList.add("hide"));
+    toggleElementsVisibility(
+      ".aside__form--assign-grade .aside__form--hide",
+      false
+    );
     console.log(`Alumno ${studentName} no encontrado.`);
   }
 }
@@ -158,6 +163,7 @@ function assignGrade(event) {
   if (student) {
     if (isStudentSubject) {
       student.updateGrade(subject, grade);
+      updateStudentTable();
       console.log(
         `Se ha asignado la calificación ${grade} en ${subject} a ${studentName}.`
       );
@@ -169,7 +175,22 @@ function assignGrade(event) {
   } else {
     console.log(`Alumno ${studentName} no encontrado.`);
   }
+  toggleElementsVisibility(
+    ".aside__form--assign-grade .aside__form--hide",
+    false
+  );
   document.querySelector(".aside__form--assign-grade").reset();
+}
+
+function toggleElementsVisibility(classes, show) {
+  const elements = document.querySelectorAll(classes);
+  elements.forEach((element) => {
+    if (show) {
+      element.classList.remove("hide");
+    } else {
+      element.classList.add("hide");
+    }
+  });
 }
 
 function createGroup(groupName) {
@@ -257,6 +278,50 @@ function sortStudentsByAge(order = "asc") {
     }):`,
     sorted
   );
+}
+
+function updateStudentTable() {
+  const tableBody = document.querySelector(".main__table-body");
+  tableBody.innerHTML = "";
+
+  students.forEach((student) => {
+    const row = document.createElement("tr");
+    row.classList.add("main__table-list");
+
+    const ageCell = document.createElement("td");
+    ageCell.classList.add("main__table-item");
+    ageCell.textContent = student.age;
+
+    const nameCell = document.createElement("td");
+    nameCell.classList.add("main__table-item");
+    nameCell.textContent = `${student.firstName} ${student.lastName}`;
+
+    const groupCell = document.createElement("td");
+    groupCell.classList.add("main__table-item");
+    groupCell.textContent = "-"; // Grupo no implementado
+
+    const subjectsCell = document.createElement("td");
+    subjectsCell.classList.add("main__table-item");
+    if (Object.keys(student.subjects).length !== 0) {
+      subjectsCell.textContent = Object.entries(student.subjects)
+        .map(([subject, grade]) => `${subject}: ${grade}`)
+        .join(", ");
+    } else {
+      subjectsCell.textContent = "-";
+    }
+
+    const averageCell = document.createElement("td");
+    averageCell.classList.add("main__table-item");
+    averageCell.textContent = "-"; // Promedio no implementado
+
+    row.appendChild(ageCell);
+    row.appendChild(nameCell);
+    row.appendChild(groupCell);
+    row.appendChild(subjectsCell);
+    row.appendChild(averageCell);
+
+    tableBody.appendChild(row);
+  });
 }
 
 document.addEventListener("DOMContentLoaded", main);
