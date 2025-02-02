@@ -1,7 +1,7 @@
 import Student from "../public/statics/js/Student.js";
 
 const students = [];
-const groups = new Map();
+const groups = {};
 
 function main() {
   initializeSpans();
@@ -50,6 +50,9 @@ function initializeForms() {
   document
     .querySelector(".aside__form--assign-grade")
     .addEventListener("submit", assignGrade);
+  document
+    .querySelector(".aside__form--assign-group")
+    .addEventListener("submit", assignGroup);
 }
 
 function addStudent(event) {
@@ -102,7 +105,7 @@ function enrollSubject(event) {
   const subject = document.getElementById("subject").value.trim();
 
   if (student) {
-    if (student.subjects && student.subjects[subject]) {
+    if (subject in student.subjects) {
       console.log(`${studentName} ya está inscrito en la materia ${subject}.`);
     } else {
       student.addSubject(subject);
@@ -193,29 +196,102 @@ function toggleElementsVisibility(classes, show) {
   });
 }
 
-function createGroup(groupName) {
-  if (!groups.has(groupName)) {
-    groups.set(groupName, []);
-    console.log(`Grupo ${groupName} creado.`);
-  } else {
-    console.log(`El grupo ${groupName} ya existe.`);
-  }
-}
+function assignGroup(event) {
+  event.preventDefault();
 
-function addStudentToGroup(groupName, studentName) {
-  const group = groups.get(groupName);
+  const studentName = document.getElementById("student-group").value.trim();
   const student = students.find(
-    (s) => `${s.firstName} ${s.lastName}` === studentName
+    (student) => `${student.firstName} ${student.lastName}` === studentName
   );
+  const groupName = document.getElementById("group").value.trim();
 
-  if (group && student) {
-    group.push(student);
+  if (student) {
+    if (!(groupName in groups)) {
+      createGroup(groupName);
+    }
+    groups[groupName].push(student);
+    updateGroups();
+    updateStudentTable();
     console.log(`${studentName} ha sido añadido al grupo ${groupName}.`);
-  } else if (!group) {
-    console.log(`El grupo ${groupName} no existe.`);
   } else {
     console.log(`Alumno ${studentName} no encontrado.`);
   }
+  document.querySelector(".aside__form--assign-group").reset();
+}
+
+function createGroup(groupName) {
+  groups[groupName] = [];
+  console.log(`Grupo ${groupName} creado.`);
+}
+
+function updateGroups() {
+  const dataLists = document.querySelectorAll(".aside__form-groups");
+
+  dataLists.forEach((datalist) => {
+    datalist.innerHTML = "";
+    Object.keys(groups).forEach((groupName) => {
+      const option = document.createElement("option");
+      option.value = groupName;
+      datalist.appendChild(option);
+    });
+  });
+}
+
+function updateStudentTable() {
+  const tableBody = document.querySelector(".main__table-body");
+  tableBody.innerHTML = "";
+
+  students.forEach((student) => {
+    const row = document.createElement("tr");
+    row.classList.add("main__table-list");
+
+    const ageCell = document.createElement("td");
+    ageCell.classList.add("main__table-item");
+    ageCell.textContent = student.age;
+
+    const nameCell = document.createElement("td");
+    nameCell.classList.add("main__table-item");
+    nameCell.textContent = `${student.firstName} ${student.lastName}`;
+
+    const groupCell = document.createElement("td");
+    groupCell.classList.add("main__table-item");
+
+    let studentGroup = "-";
+    Object.entries(groups).forEach(([groupName, studentsInGroup]) => {
+      const isInGroup = studentsInGroup.some(
+        (s) =>
+          `${s.firstName} ${s.lastName}` ===
+          `${student.firstName} ${student.lastName}`
+      );
+
+      if (isInGroup) {
+        studentGroup = groupName;
+      }
+    });
+    groupCell.textContent = studentGroup;
+
+    const subjectsCell = document.createElement("td");
+    subjectsCell.classList.add("main__table-item");
+    if (Object.keys(student.subjects).length !== 0) {
+      subjectsCell.textContent = Object.entries(student.subjects)
+        .map(([subject, grade]) => `${subject}: ${grade}`)
+        .join(", ");
+    } else {
+      subjectsCell.textContent = "-";
+    }
+
+    const averageCell = document.createElement("td");
+    averageCell.classList.add("main__table-item");
+    averageCell.textContent = "-"; // Promedio no implementado
+
+    row.appendChild(ageCell);
+    row.appendChild(nameCell);
+    row.appendChild(groupCell);
+    row.appendChild(subjectsCell);
+    row.appendChild(averageCell);
+
+    tableBody.appendChild(row);
+  });
 }
 
 function searchByName(name) {
@@ -278,50 +354,6 @@ function sortStudentsByAge(order = "asc") {
     }):`,
     sorted
   );
-}
-
-function updateStudentTable() {
-  const tableBody = document.querySelector(".main__table-body");
-  tableBody.innerHTML = "";
-
-  students.forEach((student) => {
-    const row = document.createElement("tr");
-    row.classList.add("main__table-list");
-
-    const ageCell = document.createElement("td");
-    ageCell.classList.add("main__table-item");
-    ageCell.textContent = student.age;
-
-    const nameCell = document.createElement("td");
-    nameCell.classList.add("main__table-item");
-    nameCell.textContent = `${student.firstName} ${student.lastName}`;
-
-    const groupCell = document.createElement("td");
-    groupCell.classList.add("main__table-item");
-    groupCell.textContent = "-"; // Grupo no implementado
-
-    const subjectsCell = document.createElement("td");
-    subjectsCell.classList.add("main__table-item");
-    if (Object.keys(student.subjects).length !== 0) {
-      subjectsCell.textContent = Object.entries(student.subjects)
-        .map(([subject, grade]) => `${subject}: ${grade}`)
-        .join(", ");
-    } else {
-      subjectsCell.textContent = "-";
-    }
-
-    const averageCell = document.createElement("td");
-    averageCell.classList.add("main__table-item");
-    averageCell.textContent = "-"; // Promedio no implementado
-
-    row.appendChild(ageCell);
-    row.appendChild(nameCell);
-    row.appendChild(groupCell);
-    row.appendChild(subjectsCell);
-    row.appendChild(averageCell);
-
-    tableBody.appendChild(row);
-  });
 }
 
 document.addEventListener("DOMContentLoaded", main);

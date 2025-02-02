@@ -72,7 +72,7 @@
                                 name="subject" placeholder="Lenguaje" list="subjects-grade" autocomplete="off" required>
                             <datalist id="subjects-grade" class="aside__form-subjects">
                             </datalist>
-                            <!-- En Chile las calificaciones son de 1 a 7 -->
+                            <!-- En Chile las calificaciones son de 1,0 a 7,0 -->
                             <label class="aside__form-label aside__form--hide hide" for="grade">Calificación</label>
                             <input id="grade" class="aside__form-number aside__form--hide hide" type="number"
                                 name="grade" placeholder="7.0" step="0.01" min="1.0" max="7.0" required>
@@ -87,16 +87,17 @@
                     </span>
                     <form class="aside__form aside__form--assign-group hide">
                         <fieldset class="aside__form-fieldset">
-                            <label class="aside__form-label" for="fname">Nombre</label>
-                            <input id="fname" class="aside__form-text" type="text" name="fname" placeholder="Leonardo"
-                                autocomplete="given-name" required>
-                            <label class="aside__form-label" for="lname">Apellidos</label>
-                            <input id="lname" class="aside__form-text" type="text" name="lname"
-                                placeholder="Gómez Cárdenas" autocomplete="family-name" required>
-                            <label class="aside__form-label" for="age">Edad</label>
-                            <input id="age" class="aside__form-number" type="number" name="age" placeholder="16" min="1"
-                                max="100" required>
-                            <button class="aside__form-button" type="submit">Agregar estudiante</button>
+                            <label class="aside__form-label" for="student-group">Estudiante</label>
+                            <input id="student-group" class="aside__form-text" type="text" name="student"
+                                placeholder="Leonardo Gómez Cárdenas" list="students-group" autocomplete="off" required>
+                            <datalist id="students-group" class="aside__form-students">
+                            </datalist>
+                            <label class="aside__form-label" for="group">Grupo</label>
+                            <input id="group" class="aside__form-text" type="text" name="group" placeholder="2do medio"
+                                list="groups" autocomplete="off" required>
+                            <datalist id="groups" class="aside__form-groups">
+                            </datalist>
+                            <button class="aside__form-button" type="submit">Asignar grupo</button>
                         </fieldset>
                     </form>
                 </section>
