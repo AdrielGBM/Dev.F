@@ -206,9 +206,25 @@ function assignGroup(event) {
   const groupName = document.getElementById("group").value.trim();
 
   if (student) {
+    Object.entries(groups).forEach(([group, studentsInGroup]) => {
+      const index = studentsInGroup.findIndex(
+        (s) => `${s.firstName} ${s.lastName}` === studentName
+      );
+
+      if (index !== -1) {
+        studentsInGroup.splice(index, 1);
+        console.log(`${studentName} ha sido removido del grupo ${group}.`);
+        if (studentsInGroup.length === 0) {
+          delete groups[group];
+          console.log(`Grupo ${group} eliminado porque quedó vacío.`);
+        }
+      }
+    });
+
     if (!(groupName in groups)) {
       createGroup(groupName);
     }
+
     groups[groupName].push(student);
     updateGroups();
     updateStudentTable();
