@@ -1,9 +1,10 @@
 export default class Student {
-  constructor(firstName, lastName, age, subjects = {}) {
+  constructor(firstName, lastName, age, subjects = {}, group = null) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.age = age;
     this.subjects = subjects;
+    this.group = group;
   }
 
   getAverage() {
@@ -26,5 +27,9 @@ export default class Student {
     if (this.subjects[subject] !== undefined) {
       this.subjects[subject] = grade;
     }
+  }
+
+  setGroup(groupName) {
+    this.group = groupName;
   }
 }

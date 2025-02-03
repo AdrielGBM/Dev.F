@@ -1,7 +1,6 @@
 import Student from "../public/statics/js/Student.js";
 
 const students = [];
-const groups = {};
 
 function main() {
   initializeSpans();
@@ -206,26 +205,14 @@ function assignGroup(event) {
   const groupName = document.getElementById("group").value.trim();
 
   if (student) {
-    Object.entries(groups).forEach(([group, studentsInGroup]) => {
-      const index = studentsInGroup.findIndex(
-        (s) => `${s.firstName} ${s.lastName}` === studentName
+    if (student.group !== null) {
+      console.log(
+        `${studentName} ha sido removido del grupo ${student.group}.`
       );
-
-      if (index !== -1) {
-        studentsInGroup.splice(index, 1);
-        console.log(`${studentName} ha sido removido del grupo ${group}.`);
-        if (studentsInGroup.length === 0) {
-          delete groups[group];
-          console.log(`Grupo ${group} eliminado porque quedó vacío.`);
-        }
-      }
-    });
-
-    if (!(groupName in groups)) {
-      createGroup(groupName);
+      student.group = null;
     }
 
-    groups[groupName].push(student);
+    student.setGroup(groupName);
     updateGroups();
     updateStudentTable();
     console.log(`${studentName} ha sido añadido al grupo ${groupName}.`);
@@ -235,17 +222,16 @@ function assignGroup(event) {
   document.querySelector(".aside__form--assign-group").reset();
 }
 
-function createGroup(groupName) {
-  groups[groupName] = [];
-  console.log(`Grupo ${groupName} creado.`);
-}
-
 function updateGroups() {
   const dataLists = document.querySelectorAll(".aside__form-groups");
 
+  const groups = [
+    ...new Set(students.map((student) => student.group).filter(Boolean)),
+  ];
+
   dataLists.forEach((datalist) => {
     datalist.innerHTML = "";
-    Object.keys(groups).forEach((groupName) => {
+    groups.forEach((groupName) => {
       const option = document.createElement("option");
       option.value = groupName;
       datalist.appendChild(option);
@@ -271,20 +257,7 @@ function updateStudentTable() {
 
     const groupCell = document.createElement("td");
     groupCell.classList.add("main__table-item");
-
-    let studentGroup = "-";
-    Object.entries(groups).forEach(([groupName, studentsInGroup]) => {
-      const isInGroup = studentsInGroup.some(
-        (s) =>
-          `${s.firstName} ${s.lastName}` ===
-          `${student.firstName} ${student.lastName}`
-      );
-
-      if (isInGroup) {
-        studentGroup = groupName;
-      }
-    });
-    groupCell.textContent = studentGroup;
+    groupCell.textContent = student.group || "-";
 
     const subjectsCell = document.createElement("td");
     subjectsCell.classList.add("main__table-item");
