@@ -9,12 +9,8 @@ export default class Student {
 
   getAverage() {
     const grades = Object.values(this.subjects);
-    const sum = grades.reduce((acc, grade) => {
-      if (grade !== 0) {
-        acc + grade;
-      }
-    }, 0);
-    return grades.length > 0 ? (sum / grades.length).toFixed(2) : 0;
+    const sum = grades.reduce((acc, grade) => acc + grade, 0);
+    return grades.length > 0 ? parseFloat((sum / grades.length).toFixed(2)) : 0;
   }
 
   addSubject(subject, initialGrade = 0) {

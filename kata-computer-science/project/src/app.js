@@ -3,10 +3,12 @@ import Student from "../public/statics/js/Student.js";
 const students = [];
 
 function main() {
+  loadFromLocalStorage();
   initializeSpans();
   initializeForms();
 
   updateStudents();
+  updateStudentTable();
 }
 
 function initializeSpans() {
@@ -261,17 +263,18 @@ function updateStudentTable() {
 
     const subjectsCell = document.createElement("td");
     subjectsCell.classList.add("main__table-item");
+    const averageCell = document.createElement("td");
+    averageCell.classList.add("main__table-item");
+
     if (Object.keys(student.subjects).length !== 0) {
       subjectsCell.textContent = Object.entries(student.subjects)
         .map(([subject, grade]) => `${subject}: ${grade}`)
         .join(", ");
+      averageCell.textContent = student.getAverage();
     } else {
       subjectsCell.textContent = "-";
+      averageCell.textContent = "-";
     }
-
-    const averageCell = document.createElement("td");
-    averageCell.classList.add("main__table-item");
-    averageCell.textContent = "-"; // Promedio no implementado
 
     row.appendChild(ageCell);
     row.appendChild(nameCell);
@@ -281,6 +284,7 @@ function updateStudentTable() {
 
     tableBody.appendChild(row);
   });
+  saveToLocalStorage();
 }
 
 function searchByName(name) {
@@ -291,32 +295,6 @@ function searchByName(name) {
 function searchByLastName(lastName) {
   const results = students.filter((student) => student.lastName === lastName);
   console.log(`Resultados para apellido '${lastName}':`, results);
-}
-
-function getStudentAverage(studentName) {
-  const student = students.find(
-    (s) => `${s.firstName} ${s.lastName}` === studentName
-  );
-  if (student) {
-    console.log(`Promedio de ${studentName}: ${student.getAverage()}`);
-  } else {
-    console.log(`Alumno ${studentName} no encontrado.`);
-  }
-}
-
-function getGroupAverage(groupName) {
-  const group = groups.get(groupName);
-  if (group) {
-    const totalAverage = group.reduce(
-      (sum, student) => sum + parseFloat(student.getAverage()),
-      0
-    );
-    const average =
-      group.length > 0 ? (totalAverage / group.length).toFixed(2) : 0;
-    console.log(`Promedio del grupo ${groupName}: ${average}`);
-  } else {
-    console.log(`El grupo ${groupName} no existe.`);
-  }
 }
 
 function sortStudentsByGrade(order = "asc") {
@@ -343,6 +321,25 @@ function sortStudentsByAge(order = "asc") {
     }):`,
     sorted
   );
+}
+
+function loadFromLocalStorage() {
+  const storedStudents = JSON.parse(localStorage.getItem("students")) || [];
+
+  storedStudents.forEach((data) => {
+    const student = new Student(
+      data.firstName,
+      data.lastName,
+      data.age,
+      data.subjects,
+      data.group
+    );
+    students.push(student);
+  });
+}
+
+function saveToLocalStorage() {
+  localStorage.setItem("students", JSON.stringify(students));
 }
 
 document.addEventListener("DOMContentLoaded", main);
