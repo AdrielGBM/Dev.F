@@ -86,6 +86,33 @@ body {
   border: 1px solid var(--color-border);
 }
 
+.main__section {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  gap: 1rem;
+}
+
+.main__section-form,
+.main__section-fieldset {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  gap: 1rem;
+}
+
+.main__section-text {
+  padding: 0.5rem 1rem;
+  border: 1px solid transparent;
+  border-radius: 0.5rem;
+  background-color: var(--color-bg-secondary);
+}
+
+.main__section-text:hover {
+  border: 1px solid var(--color-border);
+}
+
 .main__database {
   display: flex;
   height: min-content;

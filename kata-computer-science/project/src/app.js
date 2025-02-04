@@ -47,13 +47,16 @@ function initializeForms() {
     .addEventListener("submit", enrollSubject);
   document
     .getElementById("student-grade")
-    .addEventListener("change", updateSubjects);
+    .addEventListener("input", updateSubjects);
   document
     .querySelector(".aside__form--assign-grade")
     .addEventListener("submit", assignGrade);
   document
     .querySelector(".aside__form--assign-group")
     .addEventListener("submit", assignGroup);
+  document
+    .getElementById("filter")
+    .addEventListener("input", updateStudentTable);
 }
 
 function addStudent(event) {
@@ -243,9 +246,20 @@ function updateGroups() {
 
 function updateStudentTable() {
   const tableBody = document.querySelector(".main__table-body");
+  const filter = document.getElementById("filter").value.trim();
   tableBody.innerHTML = "";
+  let filtered = {};
 
-  students.forEach((student) => {
+  if (filter) {
+    filtered = students.filter((student) =>
+      [student.age, student.firstName, student.lastName, student.group].some(
+        (value) => String(value).toLowerCase().includes(filter.toLowerCase())
+      )
+    );
+  } else {
+    filtered = students;
+  }
+  filtered.forEach((student) => {
     const row = document.createElement("tr");
     row.classList.add("main__table-list");
 
@@ -285,16 +299,6 @@ function updateStudentTable() {
     tableBody.appendChild(row);
   });
   saveToLocalStorage();
-}
-
-function searchByName(name) {
-  const results = students.filter((student) => student.firstName === name);
-  console.log(`Resultados para nombre '${name}':`, results);
-}
-
-function searchByLastName(lastName) {
-  const results = students.filter((student) => student.lastName === lastName);
-  console.log(`Resultados para apellido '${lastName}':`, results);
 }
 
 function sortStudentsByGrade(order = "asc") {
