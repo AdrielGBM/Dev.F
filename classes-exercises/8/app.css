@@ -1,0 +1,124 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+    vertical-align: baseline;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+p {
+    display: inline;
+}
+
+h1,
+p {
+    font-size: inherit;
+    font-weight: inherit;
+    font-style: inherit;
+    text-decoration: none;
+    color: inherit;
+}
+
+::-moz-selection {
+    background-color: var(--color-text-primary);
+    color: var(--color-bg-primary);
+}
+
+::selection {
+    background-color: var(--color-text-primary);
+    color: var(--color-bg-primary);
+}
+
+form,
+input,
+button,
+label {
+    font-family: inherit;
+    font-size: inherit;
+    background-color: transparent;
+    color: inherit;
+    display: block;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-width: 320px;
+    width: 100%;
+    min-height: 100svh;
+    justify-content: center;
+    padding: 10svh 10vw;
+    font-size: 100%;
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    font-family: var(--font-secondary);
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.main__title {
+    padding: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.main__form,
+.main__form-fieldset {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+    gap: 1rem;
+}
+
+.main__form-text,
+.main__form-button {
+    padding: 0.5rem 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.5rem;
+    background-color: var(--color-bg-secondary);
+}
+
+.main__form-button {
+    margin-top: 1rem;
+}
+
+.main__form-text:hover,
+.main__form-button:hover {
+    border: 1px solid var(--color-border);
+}
+
+.main__message {
+    padding: 0.5rem;
+    font-size: 1rem;
+    text-align: center;
+}
+
+:root {
+    --color-bg-primary: rgb(225, 225, 225);
+    --color-bg-secondary: rgb(215, 215, 215);
+    --color-text-primary: rgb(30, 30, 30);
+    --color-text-secondary: rgb(100, 100, 100);
+
+    --color-border: rgb(175, 175, 175);
+
+    --font-primary: sans-serif;
+    --font-secondary: sans-serif;
+
+    @media (prefers-color-scheme: dark) {
+        --color-bg-primary: rgb(30, 30, 30);
+        --color-bg-secondary: rgb(40, 40, 40);
+        --color-text-primary: rgb(225, 225, 225);
+        --color-text-secondary: rgb(155, 155, 155);
+
+        --color-border: rgb(80, 80, 80);
+    }
+}
