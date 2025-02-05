@@ -106,8 +106,20 @@
                 <form class="main__section-form">
                     <fieldset class="main__section-fieldset">
                         <label for="filter">Filtrar:</label>
-                        <input id="filter" class="main__section-text" type="text" name="filter" placeholder="Leonardo"
-                            required>
+                        <input id="filter" class="main__section-text" type="text" name="filter" placeholder="Leonardo">
+                    </fieldset>
+                    <fieldset class="main__section-fieldset">
+                        <label for="order">Ordenar:</label>
+                        <input id="order" class="main__section-text" type="text" name="order" placeholder="Nombre"
+                            list="orders" autocomplete="off">
+                        <datalist id="orders">
+                            <option value="Edad">
+                            <option value="Nombre">
+                            <option value="Apellido">
+                            <option value="Grupo">
+                            <option value="Promedio">
+                        </datalist>
+                        <button id="sort" class="main__section-button" type="button">asc</button>
                     </fieldset>
                 </form>
                 <div class="main__database">

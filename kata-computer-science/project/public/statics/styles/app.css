@@ -97,19 +97,23 @@ body {
 .main__section-form,
 .main__section-fieldset {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: end;
   padding: 0.5rem;
   gap: 1rem;
 }
 
-.main__section-text {
+.main__section-text,
+.main__section-button {
   padding: 0.5rem 1rem;
   border: 1px solid transparent;
   border-radius: 0.5rem;
   background-color: var(--color-bg-secondary);
 }
 
-.main__section-text:hover {
+.main__section-text:hover,
+.main__section-button:hover {
   border: 1px solid var(--color-border);
 }
 

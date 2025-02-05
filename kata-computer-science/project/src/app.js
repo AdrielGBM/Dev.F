@@ -1,6 +1,6 @@
 import Student from "../public/statics/js/Student.js";
 
-const students = [];
+let students = [];
 
 function main() {
   loadFromLocalStorage();
@@ -8,7 +8,7 @@ function main() {
   initializeForms();
 
   updateStudents();
-  updateStudentTable();
+  updateStudentsTable();
 }
 
 function initializeSpans() {
@@ -56,7 +56,13 @@ function initializeForms() {
     .addEventListener("submit", assignGroup);
   document
     .getElementById("filter")
-    .addEventListener("input", updateStudentTable);
+    .addEventListener("input", updateStudentsTable);
+  document
+    .getElementById("order")
+    .addEventListener("input", updateStudentsTable);
+  document
+    .querySelector(".main__section-button")
+    .addEventListener("click", (event) => changeSortOrder(event));
 }
 
 function addStudent(event) {
@@ -77,8 +83,9 @@ function addStudent(event) {
 
   const newStudent = new Student(firstName, lastName, age);
   students.push(newStudent);
+  sortStudents();
   updateStudents();
-  updateStudentTable();
+  updateStudentsTable();
 
   console.log(
     `Alumno registrado: ${newStudent.firstName} ${newStudent.lastName}, Edad: ${newStudent.age}`
@@ -111,7 +118,7 @@ function enrollSubject(event) {
       console.log(`${studentName} ya está inscrito en la materia ${subject}.`);
     } else {
       student.addSubject(subject);
-      updateStudentTable();
+      updateStudentsTable();
       console.log(`${studentName} ha sido inscrito en la materia ${subject}.`);
     }
   } else {
@@ -164,7 +171,7 @@ function assignGrade(event) {
   if (student) {
     if (isStudentSubject) {
       student.updateGrade(subject, grade);
-      updateStudentTable();
+      updateStudentsTable();
       console.log(
         `Se ha asignado la calificación ${grade} en ${subject} a ${studentName}.`
       );
@@ -211,7 +218,7 @@ function assignGroup(event) {
 
     student.setGroup(groupName);
     updateGroups();
-    updateStudentTable();
+    updateStudentsTable();
     console.log(`${studentName} ha sido añadido al grupo ${groupName}.`);
   } else {
     console.log(`Alumno ${studentName} no encontrado.`);
@@ -242,11 +249,14 @@ function findStudent(studentName) {
   );
 }
 
-function updateStudentTable() {
-  const tableBody = document.querySelector(".main__table-body");
+function updateStudentsTable() {
   const filter = document.getElementById("filter").value.trim();
+  const order = document.getElementById("order").value.trim();
+  const sort = document.getElementById("sort").textContent;
+
+  const tableBody = document.querySelector(".main__table-body");
   tableBody.innerHTML = "";
-  let filtered = {};
+  let filtered = [];
 
   if (filter) {
     filtered = students.filter((student) =>
@@ -255,8 +265,47 @@ function updateStudentTable() {
       )
     );
   } else {
-    filtered = students;
+    filtered = [...students];
   }
+  if (order) {
+    filtered.sort((a, b) => {
+      let valueA, valueB;
+
+      switch (order.toLowerCase()) {
+        case "edad":
+          valueA = a.age;
+          valueB = b.age;
+          break;
+        case "nombre":
+          valueA = (a.firstName + a.lastName).toLowerCase();
+          valueB = (b.firstName + b.lastName).toLowerCase();
+          break;
+        case "apellido":
+          valueA = (a.lastName + a.firstName).toLowerCase();
+          valueB = (b.lastName + b.firstName).toLowerCase();
+          break;
+        case "grupo":
+          valueA = a.group ? a.group.toLowerCase() : "";
+          valueB = b.group ? b.group.toLowerCase() : "";
+          break;
+        case "promedio":
+          valueA = a.getAverage();
+          valueB = b.getAverage();
+          break;
+        default:
+          return 0;
+      }
+
+      if (typeof valueA === "string" && typeof valueB === "string") {
+        return sort === "asc"
+          ? valueA.localeCompare(valueB)
+          : valueB.localeCompare(valueA);
+      } else {
+        return sort === "asc" ? valueA - valueB : valueB - valueA;
+      }
+    });
+  }
+
   filtered.forEach((student) => {
     const row = document.createElement("tr");
     row.classList.add("main__table-list");
@@ -299,30 +348,24 @@ function updateStudentTable() {
   saveToLocalStorage();
 }
 
-function sortStudentsByGrade(order = "asc") {
-  const sorted = [...students].sort((a, b) => {
-    const avgA = parseFloat(a.getAverage());
-    const avgB = parseFloat(b.getAverage());
-    return order === "asc" ? avgA - avgB : avgB - avgA;
-  });
-  console.log(
-    `Alumnos ordenados por calificación (${
-      order === "asc" ? "ascendente" : "descendente"
-    }):`,
-    sorted
-  );
+function changeSortOrder(event) {
+  const button = event.target;
+
+  button.textContent = button.textContent === "asc" ? "desc" : "asc";
+  sortStudents();
+  updateStudentsTable();
 }
 
-function sortStudentsByAge(order = "asc") {
-  const sorted = [...students].sort((a, b) => {
-    return order === "asc" ? a.age - b.age : b.age - a.age;
+function sortStudents() {
+  const sort = document.getElementById("sort").textContent;
+
+  students = students.sort((a, b) => {
+    const valueA = (a.firstName + a.lastName).toLowerCase();
+    const valueB = (b.firstName + b.lastName).toLowerCase();
+    return sort === "asc"
+      ? valueA.localeCompare(valueB)
+      : valueB.localeCompare(valueA);
   });
-  console.log(
-    `Alumnos ordenados por edad (${
-      order === "asc" ? "ascendente" : "descendente"
-    }):`,
-    sorted
-  );
 }
 
 function loadFromLocalStorage() {
