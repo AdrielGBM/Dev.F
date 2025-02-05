@@ -103,9 +103,7 @@ function enrollSubject(event) {
   event.preventDefault();
 
   const studentName = document.getElementById("student-subject").value.trim();
-  const student = students.find(
-    (student) => `${student.firstName} ${student.lastName}` === studentName
-  );
+  const student = findStudent(studentName);
   const subject = document.getElementById("subject").value.trim();
 
   if (student) {
@@ -125,9 +123,7 @@ function enrollSubject(event) {
 function updateSubjects() {
   const dataLists = document.querySelectorAll(".aside__form-subjects");
   const studentName = document.getElementById("student-grade").value.trim();
-  const student = students.find(
-    (student) => `${student.firstName} ${student.lastName}` === studentName
-  );
+  const student = findStudent(studentName);
 
   if (student) {
     dataLists.forEach((datalist) => {
@@ -160,9 +156,7 @@ function assignGrade(event) {
   event.preventDefault();
 
   const studentName = document.getElementById("student-grade").value.trim();
-  const student = students.find(
-    (student) => `${student.firstName} ${student.lastName}` === studentName
-  );
+  const student = findStudent(studentName);
   const subject = document.getElementById("subject-grade").value.trim();
   const isStudentSubject = student.subjects[subject] !== undefined;
   const grade = parseFloat(document.getElementById("grade").value);
@@ -204,9 +198,7 @@ function assignGroup(event) {
   event.preventDefault();
 
   const studentName = document.getElementById("student-group").value.trim();
-  const student = students.find(
-    (student) => `${student.firstName} ${student.lastName}` === studentName
-  );
+  const student = findStudent(studentName);
   const groupName = document.getElementById("group").value.trim();
 
   if (student) {
@@ -242,6 +234,12 @@ function updateGroups() {
       datalist.appendChild(option);
     });
   });
+}
+
+function findStudent(studentName) {
+  return students.find(
+    (student) => `${student.firstName} ${student.lastName}` === studentName
+  );
 }
 
 function updateStudentTable() {
