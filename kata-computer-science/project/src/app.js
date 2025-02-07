@@ -272,23 +272,23 @@ function updateStudentsTable() {
       let valueA, valueB;
 
       switch (order.toLowerCase()) {
-        case "edad":
-          valueA = a.age;
-          valueB = b.age;
-          break;
-        case "nombre":
+        case "first-name":
           valueA = (a.firstName + a.lastName).toLowerCase();
           valueB = (b.firstName + b.lastName).toLowerCase();
           break;
-        case "apellido":
+        case "last-name":
           valueA = (a.lastName + a.firstName).toLowerCase();
           valueB = (b.lastName + b.firstName).toLowerCase();
           break;
-        case "grupo":
+        case "age":
+          valueA = a.age;
+          valueB = b.age;
+          break;
+        case "group":
           valueA = a.group ? a.group.toLowerCase() : "";
           valueB = b.group ? b.group.toLowerCase() : "";
           break;
-        case "promedio":
+        case "average":
           valueA = a.getAverage();
           valueB = b.getAverage();
           break;

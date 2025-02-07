@@ -101,6 +101,34 @@
                         </fieldset>
                     </form>
                 </section>
+                <section class="aside__section aside__section--delete-elements"><span class="aside__section-span">
+                        <i class="fa-solid fa-chevron-right"></i>
+                        <h2 class="aside__section-title">Eliminar elementos</h2>
+                    </span>
+                    <form class="aside__form aside__form--delete-elements hide">
+                        <fieldset class="aside__form-fieldset">
+                            <label class="aside__form-label" for="element">Elemento</label>
+                            <select id="element" class="aside__form-text" name="element" required>
+                                <option value="student">Estudiante</option>
+                                <option value="subject">Materia</option>
+                                <option value="group">Grupo</option>
+                            </select>
+                            <label class="aside__form-label" for="student-group">Estudiante</label>
+                            <input id="student-group" class="aside__form-text" type="text" name="student"
+                                placeholder="Leonardo Gómez Cárdenas" list="students-group" autocomplete="off" required>
+                            <datalist id="students-group" class="aside__form-students">
+                            </datalist>
+                            <label class="aside__form-label aside__form--hide hide" for="subject-grade">Materia</label>
+                            <input id="subject-grade" class="aside__form-text aside__form--hide hide" type="text"
+                                name="subject" placeholder="Lenguaje" list="subjects-grade" autocomplete="off" required>
+                            <datalist id="subjects-grade" class="aside__form-subjects">
+                            </datalist>
+
+                            <span id="message">Se eliminará ...</span>
+                            <button class="aside__form-button" type="submit">Eliminar elementos</button>
+                        </fieldset>
+                    </form>
+                </section>
             </aside>
             <section class="main__section">
                 <form class="main__section-form">
@@ -109,16 +137,14 @@
                         <input id="filter" class="main__section-text" type="text" name="filter" placeholder="Leonardo">
                     </fieldset>
                     <fieldset class="main__section-fieldset">
-                        <label for="order">Ordenar:</label>
-                        <input id="order" class="main__section-text" type="text" name="order" placeholder="Nombre"
-                            list="orders" autocomplete="off">
-                        <datalist id="orders">
-                            <option value="Edad">
-                            <option value="Nombre">
-                            <option value="Apellido">
-                            <option value="Grupo">
-                            <option value="Promedio">
-                        </datalist>
+                        <label class="aside__form-label" for="order">Ordenar:</label>
+                        <select id="order" class="main__section-text" name="order">
+                            <option value="first-name">Nombre</option>
+                            <option value="last-name">Apellido</option>
+                            <option value="age">Edad</option>
+                            <option value="group">Grupo</option>
+                            <option value="average">Promedio</option>
+                        </select>
                         <button id="sort" class="main__section-button" type="button">asc</button>
                     </fieldset>
                 </form>
