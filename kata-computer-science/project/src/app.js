@@ -8,6 +8,7 @@ function main() {
   initializeForms();
 
   updateStudents();
+  updateSubjects();
   updateStudentsTable();
 }
 
@@ -94,14 +95,23 @@ function addStudent(event) {
 }
 
 function updateStudents() {
-  const dataLists = document.querySelectorAll(".aside__form-students");
+  const selects = document.querySelectorAll(
+    "#student-subject, #student-grade, #student-group, #student-delete"
+  );
 
-  dataLists.forEach((datalist) => {
-    datalist.innerHTML = "";
+  selects.forEach((select) => {
+    select.innerHTML = "";
     students.forEach((student) => {
+      if (
+        select.id === "student-grade" &&
+        Object.keys(student.subjects).length === 0
+      ) {
+        return;
+      }
       const option = document.createElement("option");
       option.value = `${student.firstName} ${student.lastName}`;
-      datalist.appendChild(option);
+      option.innerHTML = `${student.firstName} ${student.lastName}`;
+      select.appendChild(option);
     });
   });
 }
@@ -128,27 +138,23 @@ function enrollSubject(event) {
 }
 
 function updateSubjects() {
-  const dataLists = document.querySelectorAll(".aside__form-subjects");
+  const selects = document.querySelectorAll("#subject-grade");
   const studentName = document.getElementById("student-grade").value.trim();
   const student = findStudent(studentName);
 
   if (student) {
-    dataLists.forEach((datalist) => {
-      datalist.innerHTML = "";
-      if (Object.keys(student.subjects).length !== 0) {
-        toggleElementsVisibility(
-          ".aside__form--assign-grade .aside__form--hide",
-          true
-        );
-        Object.keys(student.subjects).forEach((subject) => {
-          const option = document.createElement("option");
-          option.value = subject;
-          datalist.appendChild(option);
-        });
-      } else {
-        console.log("No hay materias inscritas.");
-        document.querySelector(".aside__form--assign-grade").reset();
-      }
+    selects.forEach((select) => {
+      select.innerHTML = "";
+      toggleElementsVisibility(
+        ".aside__form--assign-grade .aside__form--hide",
+        true
+      );
+      Object.keys(student.subjects).forEach((subject) => {
+        const option = document.createElement("option");
+        option.value = subject;
+        option.innerHTML = subject;
+        select.appendChild(option);
+      });
     });
   } else {
     toggleElementsVisibility(
@@ -183,10 +189,6 @@ function assignGrade(event) {
   } else {
     console.log(`Alumno ${studentName} no encontrado.`);
   }
-  toggleElementsVisibility(
-    ".aside__form--assign-grade .aside__form--hide",
-    false
-  );
   document.querySelector(".aside__form--assign-grade").reset();
 }
 

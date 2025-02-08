@@ -44,11 +44,8 @@
                     <form class="aside__form aside__form--enroll-subject hide">
                         <fieldset class="aside__form-fieldset">
                             <label class="aside__form-label" for="student-subject">Estudiante</label>
-                            <input id="student-subject" class="aside__form-text" type="text" name="student"
-                                placeholder="Leonardo Gómez Cárdenas" list="students-subject" autocomplete="off"
-                                required>
-                            <datalist id="students-subject" class="aside__form-students">
-                            </datalist>
+                            <select id="student-subject" class="aside__form-text" name="student" required>
+                            </select>
                             <label class="aside__form-label" for="subject">Materia</label>
                             <input id="subject" class="aside__form-text" type="text" name="subject"
                                 placeholder="Matemáticas" required>
@@ -63,15 +60,12 @@
                     <form class="aside__form aside__form--assign-grade hide">
                         <fieldset class="aside__form-fieldset">
                             <label class="aside__form-label" for="student-grade">Estudiante</label>
-                            <input id="student-grade" class="aside__form-text" type="text" name="student"
-                                placeholder="Leonardo Gómez Cárdenas" list="students-grade" autocomplete="off" required>
-                            <datalist id="students-grade" class="aside__form-students">
-                            </datalist>
+                            <select id="student-grade" class="aside__form-text" name="student" required>
+                            </select>
                             <label class="aside__form-label aside__form--hide hide" for="subject-grade">Materia</label>
-                            <input id="subject-grade" class="aside__form-text aside__form--hide hide" type="text"
-                                name="subject" placeholder="Lenguaje" list="subjects-grade" autocomplete="off" required>
-                            <datalist id="subjects-grade" class="aside__form-subjects">
-                            </datalist>
+                            <select id="subject-grade" class="aside__form-text aside__form--hide hide" name="subject"
+                                required>
+                            </select>
                             <!-- En Chile las calificaciones son de 1,0 a 7,0 -->
                             <label class="aside__form-label aside__form--hide hide" for="grade">Calificación</label>
                             <input id="grade" class="aside__form-number aside__form--hide hide" type="number"
@@ -88,10 +82,8 @@
                     <form class="aside__form aside__form--assign-group hide">
                         <fieldset class="aside__form-fieldset">
                             <label class="aside__form-label" for="student-group">Estudiante</label>
-                            <input id="student-group" class="aside__form-text" type="text" name="student"
-                                placeholder="Leonardo Gómez Cárdenas" list="students-group" autocomplete="off" required>
-                            <datalist id="students-group" class="aside__form-students">
-                            </datalist>
+                            <select id="student-group" class="aside__form-text" name="student" required>
+                            </select>
                             <label class="aside__form-label" for="group">Grupo</label>
                             <input id="group" class="aside__form-text" type="text" name="group" placeholder="2do medio"
                                 list="groups" autocomplete="off" required>
@@ -113,16 +105,13 @@
                                 <option value="subject">Materia</option>
                                 <option value="group">Grupo</option>
                             </select>
-                            <label class="aside__form-label" for="student-group">Estudiante</label>
-                            <input id="student-group" class="aside__form-text" type="text" name="student"
-                                placeholder="Leonardo Gómez Cárdenas" list="students-group" autocomplete="off" required>
-                            <datalist id="students-group" class="aside__form-students">
-                            </datalist>
-                            <label class="aside__form-label aside__form--hide hide" for="subject-grade">Materia</label>
-                            <input id="subject-grade" class="aside__form-text aside__form--hide hide" type="text"
-                                name="subject" placeholder="Lenguaje" list="subjects-grade" autocomplete="off" required>
-                            <datalist id="subjects-grade" class="aside__form-subjects">
-                            </datalist>
+                            <label class="aside__form-label" for="student-delete">Estudiante</label>
+                            <select id="student-delete" class="aside__form-text" name="student" required>
+                            </select>
+                            <label class="aside__form-label aside__form--hide hide" for="subject-delete">Materia</label>
+                            <select id="subject-delete" class="aside__form-text aside__form--hide hide" name="subject"
+                                required>
+                            </select>
 
                             <span id="message">Se eliminará ...</span>
                             <button class="aside__form-button" type="submit">Eliminar elementos</button>
@@ -137,7 +126,7 @@
                         <input id="filter" class="main__section-text" type="text" name="filter" placeholder="Leonardo">
                     </fieldset>
                     <fieldset class="main__section-fieldset">
-                        <label class="aside__form-label" for="order">Ordenar:</label>
+                        <label class="main__section-label" for="order">Ordenar:</label>
                         <select id="order" class="main__section-text" name="order">
                             <option value="first-name">Nombre</option>
                             <option value="last-name">Apellido</option>
