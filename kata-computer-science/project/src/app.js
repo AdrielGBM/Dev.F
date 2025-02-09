@@ -8,7 +8,13 @@ function main() {
   initializeForms();
 
   updateStudents();
-  updateSubjects();
+  updateSubjects("aside__form--assign-grade", "subject-grade", "student-grade");
+  updateSubjects(
+    "aside__form--delete-elements",
+    "subject-delete",
+    "student-delete"
+  );
+  updateGroups();
   updateStudentsTable();
 }
 
@@ -46,15 +52,29 @@ function initializeForms() {
   document
     .querySelector(".aside__form--enroll-subject")
     .addEventListener("submit", enrollSubject);
-  document
-    .getElementById("student-grade")
-    .addEventListener("input", updateSubjects);
+  document.getElementById("student-grade").addEventListener("input", () => {
+    updateSubjects(
+      "aside__form--assign-grade",
+      "subject-grade",
+      "student-grade"
+    );
+  });
   document
     .querySelector(".aside__form--assign-grade")
     .addEventListener("submit", assignGrade);
   document
     .querySelector(".aside__form--assign-group")
     .addEventListener("submit", assignGroup);
+  document.getElementById("student-delete").addEventListener("input", () => {
+    updateSubjects(
+      "aside__form--delete-elements",
+      "subject-delete",
+      "student-delete"
+    );
+  });
+  document
+    .querySelector(".aside__form--delete-elements")
+    .addEventListener("submit", deleteElements);
   document
     .getElementById("filter")
     .addEventListener("input", updateStudentsTable);
@@ -137,32 +157,37 @@ function enrollSubject(event) {
   document.querySelector(".aside__form--enroll-subject").reset();
 }
 
-function updateSubjects() {
-  const selects = document.querySelectorAll("#subject-grade");
-  const studentName = document.getElementById("student-grade").value.trim();
+function updateSubjects(formClass, selectId, studentNameId) {
+  const select = document.getElementById(selectId);
+  const studentName = document.getElementById(studentNameId).value.trim();
   const student = findStudent(studentName);
 
+  console.log(student);
+
   if (student) {
-    selects.forEach((select) => {
-      select.innerHTML = "";
-      toggleElementsVisibility(
-        ".aside__form--assign-grade .aside__form--hide",
-        true
-      );
-      Object.keys(student.subjects).forEach((subject) => {
-        const option = document.createElement("option");
-        option.value = subject;
-        option.innerHTML = subject;
-        select.appendChild(option);
-      });
+    select.innerHTML = "";
+    toggleElementsVisibility(`.${formClass} .aside__form--hide`, true);
+    Object.keys(student.subjects).forEach((subject) => {
+      const option = document.createElement("option");
+      option.value = subject;
+      option.innerHTML = subject;
+      select.appendChild(option);
     });
   } else {
-    toggleElementsVisibility(
-      ".aside__form--assign-grade .aside__form--hide",
-      false
-    );
+    toggleElementsVisibility(`.${formClass} .aside__form--hide`, false);
     console.log(`Alumno ${studentName} no encontrado.`);
   }
+}
+
+function toggleElementsVisibility(classes, show) {
+  const elements = document.querySelectorAll(classes);
+  elements.forEach((element) => {
+    if (show) {
+      element.classList.remove("hide");
+    } else {
+      element.classList.add("hide");
+    }
+  });
 }
 
 function assignGrade(event) {
@@ -190,17 +215,6 @@ function assignGrade(event) {
     console.log(`Alumno ${studentName} no encontrado.`);
   }
   document.querySelector(".aside__form--assign-grade").reset();
-}
-
-function toggleElementsVisibility(classes, show) {
-  const elements = document.querySelectorAll(classes);
-  elements.forEach((element) => {
-    if (show) {
-      element.classList.remove("hide");
-    } else {
-      element.classList.add("hide");
-    }
-  });
 }
 
 function assignGroup(event) {
@@ -244,6 +258,8 @@ function updateGroups() {
     });
   });
 }
+
+function deleteElements(event) {}
 
 function findStudent(studentName) {
   return students.find(
