@@ -12,7 +12,8 @@ function main() {
   updateSubjects(
     "aside__form--delete-elements",
     "subject-delete",
-    "student-delete"
+    "student-delete",
+    "element"
   );
   updateGroups();
   updateStudentsTable();
@@ -65,11 +66,20 @@ function initializeForms() {
   document
     .querySelector(".aside__form--assign-group")
     .addEventListener("submit", assignGroup);
+  document.getElementById("element").addEventListener("input", () => {
+    updateSubjects(
+      "aside__form--delete-elements",
+      "subject-delete",
+      "student-delete",
+      "element"
+    );
+  });
   document.getElementById("student-delete").addEventListener("input", () => {
     updateSubjects(
       "aside__form--delete-elements",
       "subject-delete",
-      "student-delete"
+      "student-delete",
+      "element"
     );
   });
   document
@@ -157,12 +167,16 @@ function enrollSubject(event) {
   document.querySelector(".aside__form--enroll-subject").reset();
 }
 
-function updateSubjects(formClass, selectId, studentNameId) {
+function updateSubjects(formClass, selectId, studentNameId, elementId = "") {
+  if (elementId) {
+    if (document.getElementById(elementId).value.trim() !== "subject") {
+      toggleElementsVisibility(`.${formClass} .aside__form--hide`, false);
+      return;
+    }
+  }
   const select = document.getElementById(selectId);
   const studentName = document.getElementById(studentNameId).value.trim();
   const student = findStudent(studentName);
-
-  console.log(student);
 
   if (student) {
     select.innerHTML = "";
@@ -259,7 +273,68 @@ function updateGroups() {
   });
 }
 
-function deleteElements(event) {}
+function deleteElements(event) {
+  event.preventDefault();
+
+  const element = document.getElementById("element").value.trim();
+  const studentName = document.getElementById("student-delete").value.trim();
+  const student = findStudent(studentName);
+
+  if (student) {
+    if (element === "student") {
+      students = students.filter(
+        (student) => `${student.firstName} ${student.lastName}` !== studentName
+      );
+      console.log(`Alumno ${studentName} ha sido eliminado.`);
+      updateStudents();
+    } else if (element === "subject") {
+      const subject = document.getElementById("subject-delete").value.trim();
+
+      if (subject) {
+        if (subject in student.subjects) {
+          delete student.subjects[subject];
+          console.log(
+            `La materia ${subject} ha sido eliminada de ${studentName}.`
+          );
+          updateSubjects(
+            "aside__form--assign-grade",
+            "subject-grade",
+            "student-grade"
+          );
+          updateSubjects(
+            "aside__form--delete-elements",
+            "subject-delete",
+            "student-delete",
+            "element"
+          );
+        } else {
+          console.log(
+            `El alumno ${studentName} no está inscrito en la materia ${subject}.`
+          );
+        }
+      } else {
+        console.log(
+          `El alumno ${studentName} no está inscrito en la materia ${subject}.`
+        );
+      }
+    } else if (element === "group") {
+      if (student.group !== null) {
+        console.log(
+          `${studentName} ha sido removido del grupo ${student.group}.`
+        );
+        student.group = null;
+        updateGroups();
+      } else {
+        console.log(`El alumno ${studentName} no pertenece a ningún grupo.`);
+      }
+    }
+
+    updateStudentsTable();
+  } else {
+    console.log(`Alumno ${studentName} no encontrado.`);
+  }
+  document.querySelector(".aside__form--assign-group").reset();
+}
 
 function findStudent(studentName) {
   return students.find(
