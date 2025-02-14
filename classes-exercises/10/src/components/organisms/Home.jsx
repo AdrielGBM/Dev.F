@@ -1,5 +1,5 @@
-import { useState } from "react";
-import CounterButtons from "../molecules/CounterButtons";
+import { useEffect, useState } from "react";
+import Counter from "../molecules/Counter";
 
 const Home = () => {
   const [people, setPeople] = useState(0);
@@ -22,15 +22,26 @@ const Home = () => {
     setMessage("");
     setPeople(people - 1);
   };
+
+  useEffect(() => {
+    setPeople(3);
+  }, []);
+
+  useEffect(() => {
+    if (!(people % 2) && people !== 0) {
+      setMessage("El número de personas es par.");
+    }
+  }, [people]);
+
   return (
     <>
-      <h1 className="title">Contador</h1>
-      <CounterButtons
+      <h1 className="title">Contador de Personas</h1>
+      <Counter
         value={people}
         add={addPeople}
         subtract={subtractPeople}
         message={message}
-      ></CounterButtons>
+      ></Counter>
     </>
   );
 };
