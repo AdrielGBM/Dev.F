@@ -1,0 +1,20 @@
+:root {
+    --color-bg-primary: rgb(225, 225, 225);
+    --color-bg-secondary: rgb(215, 215, 215);
+    --color-text-primary: rgb(30, 30, 30);
+    --color-text-secondary: rgb(100, 100, 100);
+
+    --color-border: rgb(175, 175, 175);
+
+    --font-primary: sans-serif;
+    --font-secondary: sans-serif;
+
+    @media (prefers-color-scheme: dark) {
+        --color-bg-primary: rgb(30, 30, 30);
+        --color-bg-secondary: rgb(40, 40, 40);
+        --color-text-primary: rgb(225, 225, 225);
+        --color-text-secondary: rgb(155, 155, 155);
+
+        --color-border: rgb(80, 80, 80);
+    }
+}
