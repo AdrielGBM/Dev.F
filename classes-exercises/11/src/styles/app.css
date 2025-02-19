@@ -1,0 +1,68 @@
+.main {
+  height: 100svh;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.traffic-light {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+  background-color: var(--color-bg-secondary);
+}
+
+.light {
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.green {
+  background-color: #66D575;
+}
+
+.yellow {
+  background-color: #FF9E42;
+}
+
+.red {
+  background-color: #F24822;
+}
+
+.off {
+  opacity: 0.5;
+}
+
+.button {
+  padding: 0.5rem 1rem;
+  border: 1px solid transparent;
+  border-radius: 0.5rem;
+  background-color: var(--color-bg-secondary);
+  font-weight: bold;
+  transition: color 0.2s ease-in-out;
+}
+
+.button:hover:not(:disabled) {
+  border: 1px solid var(--color-border);
+}
+
+.button:disabled {
+  color: var(--color-text-secondary);
+}
+
+.message {
+  font-weight: bold;
+}
