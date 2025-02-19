@@ -1,11 +1,32 @@
-const difficulties = "easy, medium, hard";
-const types = "boolean, multiple";
-
 async function main() {
-  const categories = await getCategories();
-  console.log(categories);
+  initializeCreateSection();
   const questions = await getQuestions();
   console.log(questions);
+}
+
+async function initializeCreateSection() {
+  const createSection = document.querySelector(".main__create");
+  const categorySelect = document.getElementById("category");
+  const createButton = document.querySelector(".main__create-button");
+
+  const categories = await getCategories();
+  if (categories) {
+    categorySelect.innerHTML = "";
+    categories.unshift({ id: 0, name: "Cualquier categoría" });
+    categories.forEach((category) => {
+      const option = document.createElement("option");
+      option.value = category.id;
+      option.text = category.name;
+      categorySelect.appendChild(option);
+    });
+
+    createButton.addEventListener("submit", initializeTriviaSection);
+    createButton.disabled = false;
+  }
+}
+
+function initializeTriviaSection(event) {
+  event.preventDefault();
 }
 
 async function getCategories() {

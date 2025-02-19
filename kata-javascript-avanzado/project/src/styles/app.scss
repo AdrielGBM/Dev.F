@@ -1,2 +1,67 @@
 @use "variables";
 @use "reset";
+@use "mixins" as *;
+
+body {
+    @include flex(column, center);
+    padding: 10svh 10vw;
+}
+
+.main {
+    @include flex(column, center);
+    gap: 4rem;
+
+    &__title {
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
+    &__create {
+        @include flex(column);
+        gap: 2rem;
+
+        &-subtitle {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        &-form {
+            @include flex(column);
+            width: 100%;
+        }
+
+        &-fieldset {
+            @extend .main__create-form;
+            gap: 1rem;
+        }
+
+        &-label {
+            font-weight: bold;
+        }
+
+        &-input {
+            width: 100%;
+            padding: 0.5rem 1rem;
+            border: 1px solid transparent;
+            border-radius: 0.5rem;
+            background-color: var(--color-bg-secondary);
+
+            &:hover:not(:disabled) {
+                border: 1px solid var(--color-border);
+            }
+        }
+
+        &-button {
+            @extend .main__create-input;
+            margin-top: 1rem;
+
+            &:disabled {
+                color: var(--color-text-secondary);
+            }
+        }
+    }
+}
+
+.hidden {
+    display: none;
+}

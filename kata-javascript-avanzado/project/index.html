@@ -10,6 +10,36 @@
 </head>
 
 <body>
+  <main class="main">
+    <h1 class="main__title">TriviaApp</h1>
+    <section class="main__create">
+      <h2 class="main__create-subtitle">Crea tu trivia personalizada</h2>
+      <form class="main__create-form">
+        <fieldset class="main__create-fieldset">
+          <label class="main__create-label" for="category">Categoría</label>
+          <select id="category" class="main__create-input" name="category" required>
+            <option value="">Cargando categorías...</option>
+          </select>
+          <label class="main__create-label" for="difficulty">Dificultad</label>
+          <select id="difficulty" class="main__create-input" name="difficulty" required>
+            <option value="">Cualquier dificultad</option>
+            <option value="easy">Fácil</option>
+            <option value="medium">Mediana</option>
+            <option value="hard">Difícil</option>
+          </select>
+          <label class="main__create-label" for="type">Tipo</label>
+          <select id="type" class="main__create-input" name="type" required>
+            <option value="">Cualquier tipo</option>
+            <option value="boolean">Verdadero o falso</option>
+            <option value="multiple">Selección múltiple</option>
+          </select>
+          <button class="main__create-button" type="submit" disabled>Crear trivia</button>
+        </fieldset>
+      </form>
+    </section>
+    <section class="main__trivia hidden"></section>
+    <section class="main__reset hidden"></section>
+  </main>
 </body>
 
 </html>
