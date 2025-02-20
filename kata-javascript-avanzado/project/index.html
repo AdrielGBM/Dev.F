@@ -22,14 +22,14 @@
           </select>
           <label class="main__create-label" for="difficulty">Dificultad</label>
           <select id="difficulty" class="main__create-input" name="difficulty" required>
-            <option value="">Cualquier dificultad</option>
+            <option value="all">Cualquier dificultad</option>
             <option value="easy">Fácil</option>
             <option value="medium">Mediana</option>
             <option value="hard">Difícil</option>
           </select>
           <label class="main__create-label" for="type">Tipo</label>
           <select id="type" class="main__create-input" name="type" required>
-            <option value="">Cualquier tipo</option>
+            <option value="all">Cualquier tipo</option>
             <option value="boolean">Verdadero o falso</option>
             <option value="multiple">Selección múltiple</option>
           </select>
@@ -37,7 +37,13 @@
         </fieldset>
       </form>
     </section>
-    <section class="main__trivia hidden"></section>
+    <section class="main__trivia hidden">
+      <h2 class="main__trivia-subtitle">Responde las preguntas</h2>
+      <form class="main__trivia-form">
+        <fieldset class="main__trivia-fieldset">
+        </fieldset>
+      </form>
+    </section>
     <section class="main__reset hidden"></section>
   </main>
 </body>

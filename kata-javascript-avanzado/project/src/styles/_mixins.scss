@@ -4,3 +4,8 @@
     align-items: $align;
     justify-content: $justify;
 }
+
+@mixin text($size: 1.5rem, $weight: bold) {
+    font-size: $size;
+    font-weight: $weight;
+}
