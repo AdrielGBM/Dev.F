@@ -7,7 +7,6 @@ import Button from "../atoms/Button";
 function Main() {
   const [color, setColor] = useState("");
   const [isButtonClicked, setIsButtonClicked] = useState(false);
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [message, setMessage] = useState("");
 
   function stopCars() {
@@ -21,7 +20,6 @@ function Main() {
 
   useEffect(() => {
     if (isButtonClicked) {
-      setIsButtonDisabled(true);
       setColor("yellow");
       setMessage("¡Precaución!");
       setTimeout(() => {
@@ -30,7 +28,6 @@ function Main() {
         setTimeout(() => {
           setColor("green");
           setMessage("Los autos pueden pasar");
-          setIsButtonDisabled(false);
         }, 10000);
       }, 3000);
       setIsButtonClicked(false);
@@ -46,7 +43,7 @@ function Main() {
           classes={"button"}
           type={"button"}
           functionOnClick={stopCars}
-          disabled={isButtonDisabled}
+          disabled={color !== "green"}
         >
           Detener autos
         </Button>
