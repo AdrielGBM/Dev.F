@@ -1,0 +1,17 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  padding: 10svh 10vw;
+  gap: 2rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.user {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
