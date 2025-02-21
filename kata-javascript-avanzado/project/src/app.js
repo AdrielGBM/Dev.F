@@ -89,6 +89,9 @@ async function createTrivia(event) {
 
         const label = document.createElement("label");
         label.classList.add("main__trivia-answer");
+        if (question.correct_answer === answer) {
+          label.classList.add("main__trivia-answer--correct");
+        }
         label.setAttribute("for", `question${index}answer${i}`);
         label.innerHTML = answer;
         divAnswers.appendChild(label);
@@ -108,7 +111,9 @@ async function createTrivia(event) {
   }
 }
 
-function results() {}
+function results(event) {
+  event.preventDefault();
+}
 
 async function getCategories() {
   const URL = "https://opentdb.com/api_category.php";
