@@ -20,7 +20,6 @@ function Main() {
         }
         const data = await response.json();
         setUser(data);
-        console.log(users);
       } catch (error) {
         setError("Error:", error.message);
       } finally {
