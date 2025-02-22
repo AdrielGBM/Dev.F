@@ -134,13 +134,32 @@ body {
             border-radius: 0.5rem;
             background-color: var(--color-bg-secondary);
             border: 1px solid transparent;
+            cursor: pointer;
+            user-select: none;
 
-            &:hover:not(&--correct) {
+            &:hover {
                 border: 1px solid var(--color-border);
             }
+        }
+    }
 
-            &--correct {
-                border: 1px solid green;
+    &__reset {
+        @extend .main__section;
+
+        &-subtitle {
+            @include text(1.2rem)
+        }
+
+        &-button {
+            width: 100%;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            border: 1px solid transparent;
+            border-radius: 0.5rem;
+            background-color: var(--color-bg-secondary);
+
+            &:hover {
+                border: 1px solid var(--color-border);
             }
         }
     }
