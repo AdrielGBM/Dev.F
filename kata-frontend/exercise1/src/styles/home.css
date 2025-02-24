@@ -1,0 +1,15 @@
+.header {
+    display: flex;
+    padding: 2rem;
+}
+
+.header__title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    padding: 10svh 10vw;
+}
