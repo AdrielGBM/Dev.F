@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 
-function Input({ id, parentClass, type, placeholder }) {
+function Input({ id, parentClass, type, placeholder, functionOnChange }) {
   const elementClass = parentClass + "-input";
 
   return (
@@ -10,6 +10,7 @@ function Input({ id, parentClass, type, placeholder }) {
       type={type}
       name={id}
       placeholder={placeholder}
+      onChange={(event) => functionOnChange(event.target.value)}
     />
   );
 }

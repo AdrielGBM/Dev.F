@@ -16,6 +16,7 @@ function SearchBar({ parentClass, label, input }) {
         parentClass={elementClass}
         type={"text"}
         placeholder={input.placeholder}
+        functionOnChange={input.functionOnChange}
       ></Input>
     </div>
   );

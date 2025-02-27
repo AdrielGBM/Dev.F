@@ -6,6 +6,7 @@ import "../../styles/home.css";
 
 function Home() {
   const [loading, setLoading] = useState(false);
+  const [data, setData] = useState([]);
   const [issues, setIssues] = useState([]);
   const [error, setError] = useState(null);
 
@@ -20,6 +21,7 @@ function Home() {
           throw new Error("Error al obtener los datos");
         }
         const data = await response.json();
+        setData(data);
         setIssues(data);
       } catch (error) {
         setError(error);
@@ -29,6 +31,14 @@ function Home() {
     }
     getIssues();
   }, []);
+
+  function search(value) {
+    setIssues(
+      data.filter((issue) => {
+        return issue.title.toLowerCase().includes(value.toLowerCase());
+      })
+    );
+  }
 
   if (loading)
     return (
@@ -51,7 +61,7 @@ function Home() {
 
   return (
     <>
-      <Header title={"React Issues"}></Header>
+      <Header title={"React Issues"} functionOnChange={search}></Header>
       <main className="main">
         <div className="main-wrapper">
           <Table parentClass="main" data={issues}></Table>
