@@ -8,7 +8,7 @@ function SearchBar({ parentClass, label, input }) {
 
   return (
     <div className={elementClass}>
-      <Label parentClass={elementClass} htmlFor={input}>
+      <Label parentClass={elementClass} htmlFor={input.id}>
         {label}
       </Label>
       <Input
