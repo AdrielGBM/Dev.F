@@ -28,7 +28,6 @@ body {
     font-size: 100%;
     font-family: var(--font-secondary);
     line-height: 1rem;
-    hyphens: auto;
     color: var(--color-text-primary);
     background-color: var(--color-bg-primary);
 }
