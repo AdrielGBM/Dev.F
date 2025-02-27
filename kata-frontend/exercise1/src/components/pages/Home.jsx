@@ -22,7 +22,7 @@ function Home() {
         const data = await response.json();
         setIssues(data);
       } catch (error) {
-        setError("Error:", error.message);
+        setError(error);
       } finally {
         setLoading(false);
       }
@@ -33,16 +33,18 @@ function Home() {
   if (loading)
     return (
       <>
-        <Header title={"Cargando...."}></Header>
-        <main className="main"></main>
+        <Header title={"React Issues"}></Header>
+        <main className="main">
+          <span className="main-message">{"Cargando...."}</span>
+        </main>
       </>
     );
   if (error)
     return (
       <>
-        <Header title={`Ocurrió un error: ${error}`}></Header>
+        <Header title={"React Issues"}></Header>
         <main className="main">
-          <h1 className="title"></h1>
+          <span className="main-message">{`Ocurrió un error: ${error.message}`}</span>
         </main>
       </>
     );
