@@ -64,7 +64,18 @@ function Home() {
       <Header title={"React Issues"} functionOnChange={search}></Header>
       <main className="main">
         <div className="main-wrapper">
-          <Table parentClass="main" data={issues}></Table>
+          <Table
+            parentClass="main"
+            data={issues.map((issue) => {
+              return {
+                number: issue.number,
+                title: issue.title,
+                url: issue.html_url,
+                user: issue.user.login,
+                labels: issue.labels.map((label) => [label.name, label.color]),
+              };
+            })}
+          ></Table>
         </div>
       </main>
     </>

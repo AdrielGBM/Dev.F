@@ -25,9 +25,9 @@ function Table({ parentClass, data }) {
               row={{
                 elements: [
                   element.number,
-                  [element.title, element.html_url],
-                  element.user.login,
-                  element.labels.map((label) => [label.name, label.color]),
+                  [element.title, element.url],
+                  element.user,
+                  element.labels,
                 ],
               }}
             ></TableRow>
